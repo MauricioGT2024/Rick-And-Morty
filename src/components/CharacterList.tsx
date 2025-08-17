@@ -1,0 +1,128 @@
+import React, { useState } from "react";
+import {
+	Grid,
+	Card,
+	Image,
+	Input,
+	Button,
+	Header,
+	Loader,
+} from "semantic-ui-react";
+import type { Character } from "../types/Character";
+import { useCharacter } from "../hooks/useCharacter";
+
+interface Props {
+	onPersonajeSeleccionado: (personaje: Character) => void;
+}
+
+const CharacterList: React.FC<Props> = ({ onPersonajeSeleccionado }) => {
+	const [busqueda, setBusqueda] = useState("");
+	const { personajes, page, setPage, totalPages, loading, error } =
+		useCharacter();
+
+	const personajesFiltrados = personajes.filter((personaje) => {
+		const busquedaLower = busqueda.toLowerCase();
+		return (
+			personaje.name.toLowerCase().includes(busquedaLower) ||
+			personaje.id.toString().includes(busquedaLower)
+		);
+	});
+
+	if (loading)
+		return <Loader active inline="centered" content="Cargando personajes..." />;
+	if (error) return <p style={{ color: "red", textAlign: "center" }}></p>;
+
+	return (
+		<>
+			<Header
+				as="h1"
+				textAlign="center"
+				color="teal"
+				style={{
+					marginBottom: "2rem",
+					fontWeight: "bold",
+					textShadow: "1px 1px #ccc",
+				}}
+				content="Bienvenido a la Página de Rick y Morty"
+			/>
+			<Header
+				as="p"
+				textAlign="center"
+				color="green"
+				style={{
+					marginBottom: "2.3rem",
+					fontWeight: "semibold",
+					textShadow: "1px 1px #ccc",
+				}}
+				compact
+				size="tiny"
+				content="Aca veras a todos los Personajes de Rick y Morty ⬇️"
+			/>
+			<Input
+				fluid
+				icon="search"
+				placeholder="Buscar por Nombre o ID..."
+				value={busqueda}
+				onChange={(e) => setBusqueda(e.target.value)}
+				style={{
+					marginBottom: "2rem",
+					backgroundColor: "#f9f9f9",
+					borderRadius: "10px",
+					boxShadow: "0 1px 5px rgba(0,0,0,0.1)",
+				}}
+			/>
+
+			<Grid doubling stackable padded columns={4} textAlign="center">
+				{personajesFiltrados.map((personaje) => (
+					<Grid.Column key={personaje.id}>
+						<Card
+							link
+							style={{
+								boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+								transition: "transform 0.2s ease",
+							}}
+							onClick={() => onPersonajeSeleccionado(personaje)}
+							onMouseEnter={(e: { currentTarget: HTMLElement }) => {
+								(e.currentTarget as HTMLElement).style.transform =
+									"scale(1.05)";
+							}}
+							onMouseLeave={(e: { currentTarget: HTMLElement }) => {
+								(e.currentTarget as HTMLElement).style.transform = "scale(1)";
+							}}
+						>
+							<Image
+								src={personaje.image}
+								centered
+								ui
+								style={{ borderRadius: "15px" }}
+							/>
+							<Card.Content>
+								<Card.Header>{personaje.name}</Card.Header>
+							</Card.Content>
+						</Card>
+					</Grid.Column>
+				))}
+			</Grid>
+			<Button.Group style={{ marginTop: "2rem" }}>
+				<Button
+					disabled={page === 1}
+					icon="arrow left"
+					content="Anterior"
+					onClick={() => setPage(page - 1)}
+				/>
+				<Button disabled>
+					Página {page} de {totalPages}
+				</Button>
+				<Button
+					disabled={page === totalPages}
+					icon="arrow right"
+					content="Siguiente"
+					labelPosition="right"
+					onClick={() => setPage(page + 1)}
+				/>
+			</Button.Group>
+		</>
+	);
+};
+
+export default CharacterList;
