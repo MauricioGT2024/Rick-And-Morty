@@ -1,4 +1,4 @@
-import RickAndMorty from "./components/Rick-And-Morty";
+import RickAndMorty from "./components/RickAndMorty";
 import "./App.css";
 function App() {
 	return (
