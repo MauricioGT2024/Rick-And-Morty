@@ -13,12 +13,28 @@ interface ApiResponse {
 
 
 
-// Obtener personajes por página
 export const fetchPaginas = async (page: number): Promise<ApiResponse> => {
-  const res = await fetch(
-    `https://rickandmortyapi.com/api/character?page=${page}`
-  );
-  if (!res.ok) throw new Error("Error en la llamada a la API");
-  const data: ApiResponse = await res.json();
-  return data;
+	try {
+		const res = await fetch(
+			`https://rickandmortyapi.com/api/character?page=${page}`
+		);
+		if (!res.ok) {
+			throw new Error(
+				`Error ${res.status}: No se pudo obtener la página ${page}`
+			);
+		}
+		const data: ApiResponse = await res.json();
+		return data;
+	} catch (err) {
+		throw new Error(`Error al obtener los personajes (página ${page}): ${err}`);
+	}
 };
+
+export const buscarPersonajes = async (query: string) => {
+	const res = await fetch(
+		`https://rickandmortyapi.com/api/character/?name=${query}`
+	);
+	if (!res.ok) throw new Error("No se encontraron personajes");
+	return await res.json();
+};
+

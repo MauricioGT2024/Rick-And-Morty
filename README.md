@@ -1,69 +1,88 @@
-# React + TypeScript + Vite
+# Trabajo Practico N9: Rick y Morty
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Descripcion
 
-Currently, two official plugins are available:
+Este trabajo es una app interactiva que usa la api de Rick y Morty
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+la app Permite:
+- Ver una Lista Paginada de los Personajes
+- la Opcion de poder Buscar por Nombre o ID
+- Tener una Descripcion del Personaje como Especie,estado, etc
+- Sistema de Paginacion 
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Tecnologias Utilizadas
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **React** (con Vite)
+- **TypeScript**
+- **Semantic-UI**
+- **Fetch API** (Llamadas HTTP)
+- **Rick And Morty API** ([https://rickandmortyapi.com](https://rickandmortyapi.com))
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Estructura del Proyecto
+```
+Rick-and-Morty-app/
+src/
+├── components/
+│ ├── CharacterList.tsx
+│ ├── CharacterDetail.tsx
+│ ├── Rick-And-Morty.tsx
+│
+├── hooks/
+│ └── useCharacter.ts
+│
+├── services/
+│ └── api.ts
+│
+├── types/
+│ └── Character.ts
+│
+├── App.tsx
+└── index.tsx
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Intalacion y Ejecucion
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 1. Clonar el Repo:
+```bash
+git clone "https://github.com/MauricioGT2024/Rick-And-Morty.git"
+
+cd rick-morty-app
 ```
+
+## 2. Instala las Dependencia:
+```bash
+npm install
+```
+o
+```bash
+yarn install
+```
+
+## 3. Desplega el Proyecto:
+```bash
+npm run dev
+```
+o
+```bash
+yarn run dev
+```
+
+## 4. Abrir en el navegador
+```bash
+http://localhost:5173
+```
+### o
+```bash
+http://tuip:5173
+```
+
+
+# 👨‍🏫 Autor
+
+Nombre: [Mauricio Sierra](https://github.com/MauricioGT2024)
+
+
+
