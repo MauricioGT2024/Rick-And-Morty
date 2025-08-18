@@ -4,7 +4,7 @@
 
 Este trabajo es una app interactiva que usa la api de Rick y Morty
 
-la app Permite:
+Funcionalidades:
 - Ver una Lista Paginada de los Personajes
 - la Opcion de poder Buscar por Nombre o ID
 - Tener una Descripcion del Personaje como Especie,estado, etc
@@ -84,5 +84,7 @@ http://tuip:5173
 
 Nombre: [Mauricio Sierra](https://github.com/MauricioGT2024)
 
+# Apoyar o ayudar al Proyecto
 
+Si te gusto el proyecto Podes darle una ⭐ para poder motivarme a seguir desarrollando y si queres contribuir con el proyeco [hacé un fork acá](https://github.com/MauricioGT2024/Rick-And-Morty/fork) y propone mejoras
 
