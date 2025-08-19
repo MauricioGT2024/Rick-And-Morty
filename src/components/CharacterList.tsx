@@ -26,14 +26,6 @@ const CharacterList: React.FC<Props> = ({ onPersonajeSeleccionado }) => {
 		setBusqueda,
 	} = useCharacter();
 
-	const personajesFiltrados = personajes.filter((personaje) => {
-		const busquedaLower = busqueda.toLowerCase();
-		return (
-			personaje.name.toLowerCase().includes(busquedaLower) ||
-			personaje.id.toString().includes(busquedaLower)
-		);
-	});
-
 	const handleBusqueda = (value: string) => {
 		setBusqueda(value);
 		setPage(1);
@@ -41,7 +33,8 @@ const CharacterList: React.FC<Props> = ({ onPersonajeSeleccionado }) => {
 
 	if (loading)
 		return <Loader active inline="centered" content="Cargando personajes..." />;
-	if (error) return <p style={{ color: "red", textAlign: "center" }}></p>;
+	if (error)
+		return <p style={{ color: "red", textAlign: "center" }}>{error}</p>;
 
 	return (
 		<>
@@ -67,7 +60,7 @@ const CharacterList: React.FC<Props> = ({ onPersonajeSeleccionado }) => {
 				}}
 				compact
 				size="tiny"
-				content="Aca veras a todos los Personajes de Rick y Morty ⬇️"
+				content="Acá verás a todos los Personajes de Rick y Morty ⬇️"
 			/>
 			<form onSubmit={(e) => e.preventDefault()}>
 				<Input
@@ -84,7 +77,8 @@ const CharacterList: React.FC<Props> = ({ onPersonajeSeleccionado }) => {
 					}}
 				/>
 			</form>
-			{personajesFiltrados.length === 0 ? (
+
+			{personajes.length === 0 ? (
 				<p
 					style={{ textAlign: "center", marginTop: "2rem", fontSize: "1.2rem" }}
 				>
@@ -93,7 +87,7 @@ const CharacterList: React.FC<Props> = ({ onPersonajeSeleccionado }) => {
 			) : (
 				<>
 					<Grid doubling stackable padded columns={4} textAlign="center">
-						{personajesFiltrados.map((personaje) => (
+						{personajes.map((personaje) => (
 							<Grid.Column key={personaje.id}>
 								<Card
 									link
@@ -102,13 +96,15 @@ const CharacterList: React.FC<Props> = ({ onPersonajeSeleccionado }) => {
 										transition: "transform 0.2s ease",
 									}}
 									onClick={() => onPersonajeSeleccionado(personaje)}
-									onMouseEnter={(e: { currentTarget: HTMLElement }) => {
-										(e.currentTarget as HTMLElement).style.transform =
-											"scale(1.05)";
+									onMouseEnter={(e: {
+										currentTarget: { style: { transform: string } };
+									}) => {
+										e.currentTarget.style.transform = "scale(1.05)";
 									}}
-									onMouseLeave={(e: { currentTarget: HTMLElement }) => {
-										(e.currentTarget as HTMLElement).style.transform =
-											"scale(1)";
+									onMouseLeave={(e: {
+										currentTarget: { style: { transform: string } };
+									}) => {
+										e.currentTarget.style.transform = "scale(1)";
 									}}
 								>
 									<Image
@@ -124,24 +120,27 @@ const CharacterList: React.FC<Props> = ({ onPersonajeSeleccionado }) => {
 							</Grid.Column>
 						))}
 					</Grid>
-					<Button.Group style={{ marginTop: "2rem" }}>
-						<Button
-							disabled={page === 1}
-							icon="arrow left"
-							content="Anterior"
-							onClick={() => setPage(page - 1)}
-						/>
-						<Button disabled>
-							Página {page} de {totalPages}
-						</Button>
-						<Button
-							disabled={page === totalPages}
-							icon="arrow right"
-							content="Siguiente"
-							labelPosition="right"
-							onClick={() => setPage(page + 1)}
-						/>
-					</Button.Group>
+
+					{totalPages > 1 && (
+						<Button.Group style={{ marginTop: "2rem" }}>
+							<Button
+								disabled={page === 1}
+								icon="arrow left"
+								content="Anterior"
+								onClick={() => setPage(page - 1)}
+							/>
+							<Button disabled>
+								Página {page} de {totalPages}
+							</Button>
+							<Button
+								disabled={page === totalPages}
+								icon="arrow right"
+								content="Siguiente"
+								labelPosition="right"
+								onClick={() => setPage(page + 1)}
+							/>
+						</Button.Group>
+					)}
 				</>
 			)}
 		</>
