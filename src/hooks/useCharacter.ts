@@ -14,7 +14,7 @@ export const useCharacter = () => {
 
 	// 🔁 Fetch de todos los personajes al inicio
 	useEffect(() => {
-		const fetchAll = async () => {
+		const fetchData = async () => {
 			setLoading(true);
 			try {
 				const primeraPagina = await fetchPaginas(1);
@@ -45,7 +45,7 @@ export const useCharacter = () => {
 			}
 		};
 
-		fetchAll();
+		fetchData();
 	}, []);
 
 	// 🔎 Lógica de búsqueda local sobre los datos ya cargados

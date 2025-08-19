@@ -30,11 +30,5 @@ export const fetchPaginas = async (page: number): Promise<ApiResponse> => {
 	}
 };
 
-export const buscarPersonajes = async (query: string) => {
-	const res = await fetch(
-		`https://rickandmortyapi.com/api/character/?name=${query}`
-	);
-	if (!res.ok) throw new Error("No se encontraron personajes");
-	return await res.json();
-};
+
 
