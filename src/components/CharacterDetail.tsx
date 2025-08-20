@@ -18,6 +18,10 @@ const styles = {
 		padding: "2rem",
 		textAlign: "center" as const,
 	},
+	segment: {
+		maxWidth: 400,
+		width: "100%",
+	},
 	image: {
 		borderRadius: 10,
 		marginBottom: 20,
@@ -32,7 +36,7 @@ interface Props {
 const CharacterDetail: React.FC<Props> = ({ personaje, onVolver }) => {
 	return (
 		<Container style={styles.container}>
-			<Segment raised padded style={{ maxWidth: 400, width: "100%" }}>
+			<Segment raised padded style={styles.segment}>
 				<a
 					href={personaje.url}
 					target="_blank"
@@ -52,7 +56,7 @@ const CharacterDetail: React.FC<Props> = ({ personaje, onVolver }) => {
 					Si quieres ver más detalles, haz clic en la imagen
 				</Message>
 
-				<Header as={"h2"} textAlign="center">
+				<Header as="h2" textAlign="center">
 					{personaje.name}
 				</Header>
 
@@ -66,6 +70,7 @@ const CharacterDetail: React.FC<Props> = ({ personaje, onVolver }) => {
 					<List.Item>
 						<strong>Origen:</strong> {personaje.origin.name}
 					</List.Item>
+					{/* Puedes agregar más propiedades aquí si quieres */}
 				</List>
 
 				<Button
@@ -74,6 +79,7 @@ const CharacterDetail: React.FC<Props> = ({ personaje, onVolver }) => {
 					content="Volver"
 					size="large"
 					onClick={onVolver}
+					aria-label="Volver al listado de personajes"
 				/>
 			</Segment>
 		</Container>

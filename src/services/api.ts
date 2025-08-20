@@ -11,13 +11,12 @@ interface ApiResponse {
   results: Character[];
 }
 
+const API_URL = "https://rickandmortyapi.com/api"; 
 
 
 export const fetchPaginas = async (page: number): Promise<ApiResponse> => {
 	try {
-		const res = await fetch(
-			`https://rickandmortyapi.com/api/character?page=${page}`
-		);
+		const res = await fetch(`${API_URL}/character?page=${page}`);
 		if (!res.ok) {
 			throw new Error(
 				`Error ${res.status}: No se pudo obtener la página ${page}`

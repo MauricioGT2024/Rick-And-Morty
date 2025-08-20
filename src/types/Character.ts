@@ -1,4 +1,4 @@
-export interface Character {
+export type Character = {
 	id: number;
 	name: string;
 	image: string;
@@ -8,4 +8,4 @@ export interface Character {
 	origin: { name: string };
 	location: { name: string };
 	url: string;
-}
+};
